@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .delete:hover {
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+    <title>Alpine.js To Do App</title>
+</head>
+
+<body>
+    <div x-data="{ todos : [], userInput : '' }">
+        <form @submit.prevent>
+            <input x-model="userInput" placeholder="Enter item" type="text">
+            <button @click="if(userInput.trim().length)
+            todos.push({ name: userInput, completed: false }); userInput = '' ">Add</button>
+        </form>
+        <!-- loop over todos -->
+        <template x-for="todo in todos">
+            <div>
+                <input type="checkbox" x-model="todo.completed">
+                <span x-text="todo.name" :class="{'completed': todo.completed}"></span>
+                <!-- delete current todo -->
+                <button @click="todos = todos.filter((currTodo) => currTodo != todo)" class="delete">x</button>
+            </div>
+        </template>
+        <!-- reset todos array in alpine state in master div -->
+        <button @click="todos = []" x-show="todos.length">Clear All</button>
+
+        <div>
+            <span x-text="todos.filter((todo) => todo.completed).length"></span>
+            <span>/</span>
+            <span x-text="todos.length"></span>
+            <span>todos completed</span>
+        </div>
+    </div>
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+
+</html>

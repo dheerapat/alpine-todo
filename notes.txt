@@ -1,0 +1,8 @@
+User should be,
+
+add todos *
+see a list of todos *
+delete a todos *
+mark a todos as complete *
+clear entire list of todos *
+see number of todos and number of completed todos *
